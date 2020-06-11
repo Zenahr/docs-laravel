@@ -1,0 +1,524 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>restful API tutorial (Laravel Backend Only) · Personal Laravel Docs and Recipes</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Original source can be found here](https://www.toptal.com/laravel/restful-laravel-api-tutorial)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="restful API tutorial (Laravel Backend Only) · Personal Laravel Docs and Recipes"/><meta property="og:type" content="website"/><meta property="og:url" content="https://Zenahr.github.io/docs-laravel/"/><meta property="og:description" content="[Original source can be found here](https://www.toptal.com/laravel/restful-laravel-api-tutorial)"/><meta property="og:image" content="https://Zenahr.github.io/docs-laravel/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://Zenahr.github.io/docs-laravel/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs-laravel/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://Zenahr.github.io/docs-laravel/blog/atom.xml" title="Personal Laravel Docs and Recipes Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://Zenahr.github.io/docs-laravel/blog/feed.xml" title="Personal Laravel Docs and Recipes Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs-laravel/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs-laravel/css/main.css"/><script src="/docs-laravel/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs-laravel/"><img class="logo" src="/docs-laravel/img/favicon.ico" alt="Personal Laravel Docs and Recipes"/><h2 class="headerTitleWithLogo">Personal Laravel Docs and Recipes</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs-laravel/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/docs-laravel/docs/doc4" target="_self">API</a></li><li class=""><a href="/docs-laravel/help" target="_self">Help</a></li><li class=""><a href="/docs-laravel/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>First Category</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Docusaurus</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs-laravel/docs/doc1">Project Manager App</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">First Category</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs-laravel/docs/doc2">restful API tutorial (Laravel Backend Only)</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Second Category</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs-laravel/docs/doc3">This is document number 3</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">restful API tutorial (Laravel Backend Only)</h1></header><article><div><span><p><a href="https://www.toptal.com/laravel/restful-laravel-api-tutorial">Original source can be found here</a></p>
+<h2><a class="anchor" aria-hidden="true" id="goal"></a><a href="#goal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Goal</h2>
+<p>Build and test a simple restfulAPI built using nothing more than Laravel.</p>
+<h2><a class="anchor" aria-hidden="true" id="setup"></a><a href="#setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h2>
+<h3><a class="anchor" aria-hidden="true" id="project-scaffolding"></a><a href="#project-scaffolding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Project Scaffolding</h3>
+<ul>
+<li><code>laravel new [Your Project Name]</code></li>
+<li><code>cd [Your Project Name]</code></li>
+<li><code>php artisan serve --port=8080</code> Note: --port is optional</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="database-configuration"></a><a href="#database-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Database Configuration</h3>
+<p>We use Sqlite3 in this tutorial.</p>
+<p>Create a database.sqlite file inside the app/database folder of your project.</p>
+<p>Then inside your .env file, change the following fields like so:</p>
+<p><code>DB_CONNECTION=sqlite</code>
+<code>DB_DATABASE=D:/../app/database/database.sqlite</code></p>
+<h1><a class="anchor" aria-hidden="true" id="migrations-scaffolding"></a><a href="#migrations-scaffolding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Migrations Scaffolding</h1>
+<p>run this command:</p>
+<p><code>php artisan make:model InventoryItem -m</code></p>
+<p>The -m created a migration-scaffold for our model so let's go ahead and modify that.</p>
+<p>You can find your migrations inside database/migrations
+The migration we are looking for will look something like this: database/migrations/XXXX_XX_XX_XXXXXX_create_inventory_items_table.php whereas the first part is just the creation date and timestamp of our migration.</p>
+<p>Update the up() function like so:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>
+    </span>{
+        Schema::create(<span class="hljs-string">'inventory_items'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+            $table-&gt;increments(<span class="hljs-string">'id'</span>);
+            $table-&gt;string(<span class="hljs-string">'itemName'</span>);
+            $table-&gt;longText(<span class="hljs-string">'itemDescription'</span>)-&gt;nullable();
+            $table-&gt;integer(<span class="hljs-string">'itemQuantity'</span>);
+            $table-&gt;boolean(<span class="hljs-string">'itemIsAvailable'</span>);
+
+            $table-&gt;timestamps();
+        });
+    }
+</code></pre>
+<p>The InventoryItem migration file look like this:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Migrations</span>\<span class="hljs-title">Migration</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Schema</span>\<span class="hljs-title">Blueprint</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Schema</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreateInventoryItemsTable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Migration</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Run the migrations.
+     *
+     * <span class="hljs-doctag">@return</span> void
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>
+    </span>{
+        Schema::create(<span class="hljs-string">'inventory_items'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+            $table-&gt;increments(<span class="hljs-string">'id'</span>);
+            $table-&gt;string(<span class="hljs-string">'itemName'</span>);
+            $table-&gt;longText(<span class="hljs-string">'itemDescription'</span>)-&gt;nullable();
+            $table-&gt;integer(<span class="hljs-string">'itemQuantity'</span>);
+            $table-&gt;boolean(<span class="hljs-string">'itemIsAvailable'</span>);
+            $table-&gt;timestamps();
+        });
+    }
+
+    <span class="hljs-comment">/**
+     * Reverse the migrations.
+     *
+     * <span class="hljs-doctag">@return</span> void
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">down</span><span class="hljs-params">()</span>
+    </span>{
+        Schema::dropIfExists(<span class="hljs-string">'inventory_items'</span>);
+    }
+}
+</span></code></pre>
+<p>If you don't know how the Schema Builder works, feel free to take a look at the <a href="https://laravel.com/docs/4.2/schema">official Laravel documentation on the Schema Builder</a></p>
+<p>now we just have to run our migration like so:</p>
+<p><code>php artisan migrate</code></p>
+<p>If you run into any problems at this point you might have not set up your database connection correctly.</p>
+<h2><a class="anchor" aria-hidden="true" id="database"></a><a href="#database" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Database</h2>
+<p>This is where we will be configuring our Models and Migrations and also seed our databse with mock-data.</p>
+<h3><a class="anchor" aria-hidden="true" id="model-configuration"></a><a href="#model-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Configuration</h3>
+<p>After creating our migrations and populating our database we will now edit our InventoryItem model.
+You can find your Models inside the [yourprojectfolder]/app directory.</p>
+<p>Let's edit our InventoryItem.php file like so:</p>
+<pre><code class="hljs">&lt;?php
+
+namespace <span class="hljs-type">App</span>;
+
+use <span class="hljs-type">Illuminate</span>\<span class="hljs-type">Database</span>\<span class="hljs-type">Eloquent</span>\<span class="hljs-type">Model</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InventoryItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span></span>
+{
+    <span class="hljs-keyword">protected</span> $fillable = [<span class="hljs-symbol">'itemNam</span>e',<span class="hljs-symbol">'itemDescriptio</span>n', <span class="hljs-symbol">'itemQuantit</span>y', <span class="hljs-symbol">'itemIsAvailabl</span>e'];
+}
+
+</code></pre>
+<p>$fillable allows us to run arrays of data against our database and populate it quickly with test-data.</p>
+<h3><a class="anchor" aria-hidden="true" id="seeding-our-database-with-mock-data"></a><a href="#seeding-our-database-with-mock-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Seeding our Database with Mock-Data</h3>
+<p>Let's populate our database with some dummy-data.</p>
+<p>Laravel comes with <code>Faker</code>, a php module allowing automatised seeding of database tables.</p>
+<p>Let's run</p>
+<p><code>php artisan make:seeder InventoryItemSeeder</code></p>
+<p>Then open the newly created InventoryItemSeeder.php file inside app/database/seeds and edit it as follows:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">InventoryItem</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InventoryItemSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Run the database seeds.
+     *
+     * <span class="hljs-doctag">@return</span> void
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span><span class="hljs-params">()</span>
+    </span>{
+
+        <span class="hljs-comment">// Initialize Faker module.</span>
+        $faker = \Faker\Factory::create();
+
+        <span class="hljs-comment">// Remove all existing records.</span>
+        InventoryItem::truncate();
+
+        <span class="hljs-comment">// Seed data.</span>
+        <span class="hljs-keyword">for</span> ($i = <span class="hljs-number">0</span>; $i &lt; <span class="hljs-number">50</span>; $i++) {
+            InventoryItem::create([
+                <span class="hljs-string">'itemName'</span> =&gt; $faker-&gt;name,
+                <span class="hljs-string">'itemDescription'</span> =&gt; $faker-&gt;paragraph,
+                <span class="hljs-string">'itemQuantity'</span> =&gt; $faker-&gt;biasedNumberBetween($min = <span class="hljs-number">0</span>, $max = <span class="hljs-number">200</span>, $function = <span class="hljs-string">'sqrt'</span>),
+                <span class="hljs-string">'itemIsAvailable'</span> =&gt; $faker-&gt;boolean,
+            ]);
+        }
+    }
+}
+</span></code></pre>
+<p>and run this command to populate our database with mock-data:</p>
+<p><code>php artisan db:seed --class=InventoryItemSeeder</code></p>
+<p>In case you want to run more than one seeder do the following to make things easier for you:</p>
+<p>Open app/database/seeds/DatabaseSeeder.php and add your Seeders to the run() function as follows:</p>
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span></span>
+{
+    public function run()
+    {
+        $<span class="hljs-keyword">this</span>-&gt;call(<span class="hljs-type">InventoryItemSeeder</span>::<span class="hljs-class"><span class="hljs-keyword">class</span>)</span>;
+       <span class="hljs-comment">// $this-&gt;call(YourOtherSeeder::class);</span>
+    }
+}
+</code></pre>
+<p>After this you can simple run all your Seeders using just this command:</p>
+<p><code>php artisan db:seed</code></p>
+<p>That's beautiful, I agree.</p>
+<h2><a class="anchor" aria-hidden="true" id="routes-and-controllers"></a><a href="#routes-and-controllers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Routes and Controllers</h2>
+<h3><a class="anchor" aria-hidden="true" id="api-routes"></a><a href="#api-routes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API Routes</h3>
+<p>Let’s create the basic endpoints for our application: create, retrieve the list, retrieve a single one, update, and delete. On the routes/api.php file, we can simply do this:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Route</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">InventoryItem</span>
+
+/*
+|--------------------------------------------------------------------------
+| <span class="hljs-title">API</span> <span class="hljs-title">Routes</span>
+|--------------------------------------------------------------------------
+|
+| <span class="hljs-title">Here</span> <span class="hljs-title">is</span> <span class="hljs-title">where</span> <span class="hljs-title">you</span> <span class="hljs-title">can</span> <span class="hljs-title">register</span> <span class="hljs-title">API</span> <span class="hljs-title">routes</span> <span class="hljs-title">for</span> <span class="hljs-title">your</span> <span class="hljs-title">application</span>. <span class="hljs-title">These</span>
+| <span class="hljs-title">routes</span> <span class="hljs-title">are</span> <span class="hljs-title">loaded</span> <span class="hljs-title">by</span> <span class="hljs-title">the</span> <span class="hljs-title">RouteServiceProvider</span> <span class="hljs-title">within</span> <span class="hljs-title">a</span> <span class="hljs-title">group</span> <span class="hljs-title">which</span>
+| <span class="hljs-title">is</span> <span class="hljs-title">assigned</span> <span class="hljs-title">the</span> "<span class="hljs-title">api</span>" <span class="hljs-title">middleware</span> <span class="hljs-title">group</span>. <span class="hljs-title">Enjoy</span> <span class="hljs-title">building</span> <span class="hljs-title">your</span> <span class="hljs-title">API</span>!
+|
+*/
+
+<span class="hljs-title">Route</span>::<span class="hljs-title">middleware</span>('<span class="hljs-title">auth</span>:<span class="hljs-title">api</span>')-&gt;<span class="hljs-title">get</span>('/<span class="hljs-title">user</span>', <span class="hljs-title">function</span> (<span class="hljs-title">Request</span> $<span class="hljs-title">request</span>) {
+    <span class="hljs-title">return</span> $<span class="hljs-title">request</span>-&gt;<span class="hljs-title">user</span>();
+});
+
+Route::get(<span class="hljs-string">'items'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> InventoryItem::all();
+});
+
+Route::get(<span class="hljs-string">'items/{id}'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($id)</span> </span>{
+    <span class="hljs-keyword">return</span> InventoryItem::find($id);
+});
+
+Route::post(<span class="hljs-string">'items'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Request $request)</span> </span>{
+    <span class="hljs-keyword">return</span> InventoryItem::create($request-&gt;all);
+});
+
+Route::put(<span class="hljs-string">'items/{id}'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Request $request, $id)</span> </span>{
+    $InventoryItem = InventoryItem::findOrFail($id);
+    $InventoryItem-&gt;update($request-&gt;all());
+
+    <span class="hljs-keyword">return</span> $InventoryItem;
+});
+
+Route::delete(<span class="hljs-string">'items/{id}'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($id)</span> </span>{
+    InventoryItem::find($id)-&gt;delete();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">204</span>;
+})
+</span></code></pre>
+<p>The routes inside api.php will be prefixed with /api/ and the API throttling middleware will be automatically applied to these routes (if you want to remove the prefix you can edit the RouteServiceProvider class on /app/Providers/RouteServiceProvider.php).</p>
+<p>Now let’s move this code to its own Controller:</p>
+<p><code>php artisan make:controller InventoryItemController</code></p>
+<p>This command creates a controller at app/Http/Controllers</p>
+<p>Paste this code into InventoryItemController.php:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">InventoryItem</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InventoryItemController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> InventoryItem::all();
+    }
+ 
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> InventoryItem::find($id);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> InventoryItem::create($request-&gt;all());
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">(Request $request, $id)</span>
+    </span>{
+        $item = InventoryItem::findOrFail($id);
+        $item-&gt;update($request-&gt;all());
+
+        <span class="hljs-keyword">return</span> $item;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">(Request $request, $id)</span>
+    </span>{
+        $item = InventoryItem::findOrFail($id);
+        $item-&gt;delete();
+
+        <span class="hljs-keyword">return</span> <span class="hljs-number">204</span>;
+    }
+}
+</span></code></pre>
+<p>At this point you should be able to visit localhost:8000/api/items and get a list of all items inside your database as json. Cool, right?</p>
+<p>We will add exception handling for good measure too.
+Open app/Exceptions/Handler.php and add a check for ModelNotFound exceptions like so:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Exceptions</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Exceptions</span>\<span class="hljs-title">Handler</span> <span class="hljs-title">as</span> <span class="hljs-title">ExceptionHandler</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Throwable</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Handler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExceptionHandler</span>
+</span>{
+    <span class="hljs-comment">/**
+     * A list of the exception types that are not reported.
+     *
+     * <span class="hljs-doctag">@var</span> array
+     */</span>
+    <span class="hljs-keyword">protected</span> $dontReport = [
+        <span class="hljs-comment">//</span>
+    ];
+
+    <span class="hljs-comment">/**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * <span class="hljs-doctag">@var</span> array
+     */</span>
+    <span class="hljs-keyword">protected</span> $dontFlash = [
+        <span class="hljs-string">'password'</span>,
+        <span class="hljs-string">'password_confirmation'</span>,
+    ];
+
+    <span class="hljs-comment">/**
+     * Report or log an exception.
+     *
+     * <span class="hljs-doctag">@param</span>  \Throwable  $exception
+     * <span class="hljs-doctag">@return</span> void
+     *
+     * <span class="hljs-doctag">@throws</span> \Exception
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">report</span><span class="hljs-params">(Throwable $exception)</span>
+    </span>{
+        <span class="hljs-keyword">parent</span>::report($exception);
+    }
+
+    <span class="hljs-comment">/**
+     * Render an exception into an HTTP response.
+     *
+     * <span class="hljs-doctag">@param</span>  \Illuminate\Http\Request  $request
+     * <span class="hljs-doctag">@param</span>  \Throwable  $exception
+     * <span class="hljs-doctag">@return</span> \Symfony\Component\HttpFoundation\Response
+     *
+     * <span class="hljs-doctag">@throws</span> \Throwable
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">($request, Throwable $exception)</span>
+    </span>{
+        <span class="hljs-keyword">if</span> ($exception <span class="hljs-keyword">instanceof</span> ModelNotFoundException &amp;&amp;
+        $request-&gt;wantsJson())
+    {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">'data'</span> =&gt; <span class="hljs-string">'Resource not found'</span>
+        ], <span class="hljs-number">404</span>);
+    }
+
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">parent</span>::render($request, $exception);
+    }
+}
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="testing"></a><a href="#testing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing</h2>
+<p>Here you'll learn the basics of testing your own API.</p>
+<h3><a class="anchor" aria-hidden="true" id="setup-1"></a><a href="#setup-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h3>
+<p>To get started, we’ll need to tweak a few settings to use an in-memory SQLite database. Using that will make our tests run lightning fast, but the trade-off is that some migration commands (constraints, for example) will not work properly in that particular setup. I advise moving away from SQLite in testing when you start getting migration errors or if you prefer a stronger set of tests instead of performant runs.</p>
+<p>We’ll also run the migrations before each test. This setup will allow us to build the database for each test and then destroy it, avoiding any type of dependency between tests.</p>
+<p>In our config/database.php file, we’ll need to set up the database field in the sqlite configuration like so:</p>
+<pre><code class="hljs">...
+<span class="hljs-string">'connections'</span> =&gt; [
+
+    <span class="hljs-string">'sqlite'</span> =&gt; [
+        <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'sqlite'</span>,
+        <span class="hljs-string">'database'</span> =&gt; <span class="hljs-string">':memory:'</span>,
+        <span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">''</span>,
+    ],
+    
+    ...
+]
+</code></pre>
+<p>Then enable SQLite in phpunit.xml by adding the environment variable DB_CONNECTION:</p>
+<pre><code class="hljs">    &lt;php&gt;
+        &lt;env <span class="hljs-type">name</span>="APP_ENV" <span class="hljs-keyword">value</span>="testing"/&gt;
+        &lt;env <span class="hljs-type">name</span>="CACHE_DRIVER" <span class="hljs-keyword">value</span>="array"/&gt;
+        &lt;env <span class="hljs-type">name</span>="SESSION_DRIVER" <span class="hljs-keyword">value</span>="array"/&gt;
+        &lt;env <span class="hljs-type">name</span>="QUEUE_DRIVER" <span class="hljs-keyword">value</span>="sync"/&gt;
+        &lt;env <span class="hljs-type">name</span>="DB_CONNECTION" <span class="hljs-keyword">value</span>="sqlite"/&gt;
+    &lt;/php&gt;
+</code></pre>
+<p>With that out of the way, all that’s left is configuring our base TestCase class to use migrations and seed the database before each test. To do so, we need to add the DatabaseMigrations trait, and then add an Artisan call on our setUp() method. Here’s the class after the changes:</p>
+<pre><code class="hljs"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Testing</span>\<span class="hljs-title">DatabaseMigrations</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Testing</span>\<span class="hljs-title">TestCase</span> <span class="hljs-title">as</span> <span class="hljs-title">BaseTestCase</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Artisan</span>;
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestCase</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseTestCase</span>
+</span>{
+    <span class="hljs-keyword">use</span> <span class="hljs-title">CreatesApplication</span>, <span class="hljs-title">DatabaseMigrations</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setUp</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">parent</span>::setUp();
+        Artisan::call(<span class="hljs-string">'db:seed'</span>);
+    }
+}
+</code></pre>
+<p>One last thing that I like to do is to add the test command to composer.json:</p>
+<pre><code class="hljs"> <span class="hljs-string">"scripts"</span>: {
+        <span class="hljs-string">"test"</span> : [
+            <span class="hljs-string">"vendor/bin/phpunit"</span>
+        ],
+    ... 
+    },    
+</code></pre>
+<p>The test command will be available like this: <code>composer test</code></p>
+<h2><a class="anchor" aria-hidden="true" id="setting-up-test-factories"></a><a href="#setting-up-test-factories" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting Up Test-Factories</h2>
+<p>Factories will allow us to quickly create objects with the right data for testing. They’re located in the database/factories folder. Laravel comes out of the box with a factory for the User class, so let’s add one for the InventoryItem class:</p>
+<pre><code class="hljs">$factory-&gt;define(App\InventoryItem::class, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Faker\Generator $faker)</span> </span>{
+    <span class="hljs-keyword">return</span> [
+                <span class="hljs-string">'itemName'</span> =&gt; $faker-&gt;name,
+                <span class="hljs-string">'itemDescription'</span> =&gt; $faker-&gt;paragraph,
+                <span class="hljs-string">'itemQuantity'</span> =&gt; $faker-&gt;biasedNumberBetween($min = <span class="hljs-number">0</span>, $max = <span class="hljs-number">200</span>, $function = <span class="hljs-string">'sqrt'</span>),
+                <span class="hljs-string">'itemIsAvailable'</span> =&gt; $faker-&gt;boolean,
+    ];
+});
+</code></pre>
+<p>The Faker library is already injected to help us create the correct format of random data for our models.</p>
+<h2><a class="anchor" aria-hidden="true" id="our-first-tests"></a><a href="#our-first-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Our First Tests</h2>
+<p>We can use Laravel’s assert methods to easily hit an endpoint and evaluate its response. Let’s create our first test, the login test, using the following command:</p>
+<p><code>php artisan make:test Feature/InventoryItemTest</code></p>
+<p>And here is our test for our InventoryItems API endpoints:</p>
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InventoryItemTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TestCase</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testsInventoryItemsAreCreatedCorrectly</span><span class="hljs-params">()</span>
+    </span>{
+        $user = factory(User::class)-&gt;create();
+        $token = $user-&gt;generateToken();
+        $headers = [<span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">"Bearer $token"</span>];
+        $payload = [
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Lorem'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Ipsum'</span>,
+        ];
+
+        <span class="hljs-keyword">$this</span>-&gt;json(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'/api/articles'</span>, $payload, $headers)
+            -&gt;assertStatus(<span class="hljs-number">200</span>)
+            -&gt;assertJson([<span class="hljs-string">'id'</span> =&gt; <span class="hljs-number">1</span>, <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Lorem'</span>, <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Ipsum'</span>]);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testsInventoryItemsAreUpdatedCorrectly</span><span class="hljs-params">()</span>
+    </span>{
+        $user = factory(User::class)-&gt;create();
+        $token = $user-&gt;generateToken();
+        $headers = [<span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">"Bearer $token"</span>];
+        $article = factory(Article::class)-&gt;create([
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'First Article'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'First Body'</span>,
+        ]);
+
+        $payload = [
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Lorem'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Ipsum'</span>,
+        ];
+
+        $response = <span class="hljs-keyword">$this</span>-&gt;json(<span class="hljs-string">'PUT'</span>, <span class="hljs-string">'/api/articles/'</span> . $article-&gt;id, $payload, $headers)
+            -&gt;assertStatus(<span class="hljs-number">200</span>)
+            -&gt;assertJson([ 
+                <span class="hljs-string">'id'</span> =&gt; <span class="hljs-number">1</span>, 
+                <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Lorem'</span>, 
+                <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Ipsum'</span> 
+            ]);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testsArtilcesAreDeletedCorrectly</span><span class="hljs-params">()</span>
+    </span>{
+        $user = factory(User::class)-&gt;create();
+        $token = $user-&gt;generateToken();
+        $headers = [<span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">"Bearer $token"</span>];
+        $article = factory(Article::class)-&gt;create([
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'First Article'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'First Body'</span>,
+        ]);
+
+        <span class="hljs-keyword">$this</span>-&gt;json(<span class="hljs-string">'DELETE'</span>, <span class="hljs-string">'/api/articles/'</span> . $article-&gt;id, [], $headers)
+            -&gt;assertStatus(<span class="hljs-number">204</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testInventoryItemsAreListedCorrectly</span><span class="hljs-params">()</span>
+    </span>{
+        factory(Article::class)-&gt;create([
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'First Article'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'First Body'</span>
+        ]);
+
+        factory(Article::class)-&gt;create([
+            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Second Article'</span>,
+            <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Second Body'</span>
+        ]);
+
+        $user = factory(User::class)-&gt;create();
+        $token = $user-&gt;generateToken();
+        $headers = [<span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">"Bearer $token"</span>];
+
+        $response = <span class="hljs-keyword">$this</span>-&gt;json(<span class="hljs-string">'GET'</span>, <span class="hljs-string">'/api/articles'</span>, [], $headers)
+            -&gt;assertStatus(<span class="hljs-number">200</span>)
+            -&gt;assertJson([
+                [ <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'First Article'</span>, <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'First Body'</span> ],
+                [ <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'Second Article'</span>, <span class="hljs-string">'body'</span> =&gt; <span class="hljs-string">'Second Body'</span> ]
+            ])
+            -&gt;assertJsonStructure([
+                <span class="hljs-string">'*'</span> =&gt; [<span class="hljs-string">'id'</span>, <span class="hljs-string">'body'</span>, <span class="hljs-string">'title'</span>, <span class="hljs-string">'created_at'</span>, <span class="hljs-string">'updated_at'</span>],
+            ]);
+    }
+
+}
+</code></pre>
+<p>Note: These tests do not work with out current table structure. Please be warry of that. The correct implementation is left as an excercise to the reader.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs-laravel/docs/doc1"><span class="arrow-prev">← </span><span>Project Manager App</span></a><a class="docs-next button" href="/docs-laravel/docs/doc3"><span>This is document number 3</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#goal">Goal</a></li><li><a href="#setup">Setup</a><ul class="toc-headings"><li><a href="#project-scaffolding">Project Scaffolding</a></li><li><a href="#database-configuration">Database Configuration</a></li></ul></li><li><a href="#database">Database</a><ul class="toc-headings"><li><a href="#model-configuration">Model Configuration</a></li><li><a href="#seeding-our-database-with-mock-data">Seeding our Database with Mock-Data</a></li></ul></li><li><a href="#routes-and-controllers">Routes and Controllers</a><ul class="toc-headings"><li><a href="#api-routes">API Routes</a></li></ul></li><li><a href="#testing">Testing</a><ul class="toc-headings"><li><a href="#setup-1">Setup</a></li></ul></li><li><a href="#setting-up-test-factories">Setting Up Test-Factories</a></li><li><a href="#our-first-tests">Our First Tests</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs-laravel/" class="nav-home"><img src="/docs-laravel/img/favicon.ico" alt="Personal Laravel Docs and Recipes" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs-laravel/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs-laravel/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs-laravel/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/docs-laravel/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/docs-laravel/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/docs-laravel/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2020 Zenahr Barzani. All Rights Reserved.</section></footer></div></body></html>

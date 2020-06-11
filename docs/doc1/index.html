@@ -1,0 +1,759 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Project Manager App · Personal Laravel Docs and Recipes</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Original source can be found here](https://blog.pusher.com/react-laravel-application/)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Project Manager App · Personal Laravel Docs and Recipes"/><meta property="og:type" content="website"/><meta property="og:url" content="https://Zenahr.github.io/docs-laravel/"/><meta property="og:description" content="[Original source can be found here](https://blog.pusher.com/react-laravel-application/)"/><meta property="og:image" content="https://Zenahr.github.io/docs-laravel/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://Zenahr.github.io/docs-laravel/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs-laravel/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://Zenahr.github.io/docs-laravel/blog/atom.xml" title="Personal Laravel Docs and Recipes Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://Zenahr.github.io/docs-laravel/blog/feed.xml" title="Personal Laravel Docs and Recipes Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs-laravel/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs-laravel/css/main.css"/><script src="/docs-laravel/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs-laravel/"><img class="logo" src="/docs-laravel/img/favicon.ico" alt="Personal Laravel Docs and Recipes"/><h2 class="headerTitleWithLogo">Personal Laravel Docs and Recipes</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive siteNavItemActive"><a href="/docs-laravel/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/docs-laravel/docs/doc4" target="_self">API</a></li><li class=""><a href="/docs-laravel/help" target="_self">Help</a></li><li class=""><a href="/docs-laravel/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Docusaurus</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Docusaurus</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs-laravel/docs/doc1">Project Manager App</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">First Category</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs-laravel/docs/doc2">restful API tutorial (Laravel Backend Only)</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Second Category</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs-laravel/docs/doc3">This is document number 3</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Project Manager App</h1></header><article><div><span><p><a href="https://blog.pusher.com/react-laravel-application/">Original source can be found here</a></p>
+<h2><a class="anchor" aria-hidden="true" id="goal"></a><a href="#goal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Goal</h2>
+<p>We want to use React and Laravel together</p>
+<h2><a class="anchor" aria-hidden="true" id="scaffolding"></a><a href="#scaffolding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scaffolding</h2>
+<ul>
+<li><code>laravel new [Your Project Name]</code></li>
+<li><code>cd [Your Project Name]</code></li>
+<li><code>composer require laravel/ui</code></li>
+<li><code>php artisan ui react</code></li>
+<li><code>npm install</code></li>
+<li><code>php artisan serve --port=8080</code></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="models--migrations-scaffolding"></a><a href="#models--migrations-scaffolding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Models &amp; Migrations Scaffolding</h2>
+<ul>
+<li><code>php artisan make:model Task -m</code></li>
+<li><code>php artisan make:model Project -m</code></li>
+</ul>
+<p>Note: The -m flag runs automatic migration generation for your model.
+Next, open app/Task.php and place following code inside of it:</p>
+<pre><code class="hljs">&lt;?php
+
+    namespace <span class="hljs-type">App</span>;
+
+    use <span class="hljs-type">Illuminate</span>\<span class="hljs-type">Database</span>\<span class="hljs-type">Eloquent</span>\<span class="hljs-type">Model</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Task</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span></span>
+    {
+      <span class="hljs-keyword">protected</span> $fillable = [<span class="hljs-symbol">'titl</span>e', <span class="hljs-symbol">'project_i</span>d'];
+    }
+</code></pre>
+<p>Next, open app/Project.php and place following code inside of it:</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+    <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>;
+
+    <span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Model</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Project</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>
+    </span>{
+      <span class="hljs-keyword">protected</span> $fillable = [<span class="hljs-string">'name'</span>, <span class="hljs-string">'description'</span>];
+
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tasks</span><span class="hljs-params">()</span>
+      </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;hasMany(Task::class);
+      }
+    }
+</span></code></pre>
+<h1><a class="anchor" aria-hidden="true" id="specify-migrations"></a><a href="#specify-migrations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specify Migrations</h1>
+<p>Open database/migrations/TIMESTAMP_create_tasks_table.php and update the up method as below:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>
+    </span>{
+      Schema::create(<span class="hljs-string">'tasks'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+        $table-&gt;increments(<span class="hljs-string">'id'</span>);
+        $table-&gt;string(<span class="hljs-string">'title'</span>);
+        $table-&gt;unsignedInteger(<span class="hljs-string">'project_id'</span>);
+        $table-&gt;boolean(<span class="hljs-string">'is_completed'</span>)-&gt;default(<span class="hljs-number">0</span>);
+        $table-&gt;timestamps();
+      });
+    }
+</code></pre>
+<p>Then open database/migrations/TIMESTAMP_create_tasks_table.php and update the up method as below:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>
+    </span>{
+      Schema::create(<span class="hljs-string">'projects'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+        $table-&gt;increments(<span class="hljs-string">'id'</span>);
+        $table-&gt;string(<span class="hljs-string">'name'</span>);
+        $table-&gt;text(<span class="hljs-string">'description'</span>);
+        $table-&gt;boolean(<span class="hljs-string">'is_completed'</span>)-&gt;default(<span class="hljs-number">0</span>);
+        $table-&gt;timestamps();
+      });
+    }
+</code></pre>
+<h1><a class="anchor" aria-hidden="true" id="configure-the-database"></a><a href="#configure-the-database" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure The Database</h1>
+<p>We'll be using Sqlite for this tutorial.
+create a database.sqlite file inside the database directory then update the .env file as below:</p>
+<pre><code class="hljs">DB_CONNECTION=sqlite
+DB_DATABASE=/<span class="hljs-keyword">full</span>/<span class="hljs-type">path</span>/<span class="hljs-keyword">to</span>/<span class="hljs-keyword">database</span>/<span class="hljs-keyword">database</span>.sqlite
+</code></pre>
+<p>Then, run the migrations as follows:</p>
+<p><code>php artisan migrate</code></p>
+<h1><a class="anchor" aria-hidden="true" id="restfulapi-definition"></a><a href="#restfulapi-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>RestfulAPI Definition</h1>
+<h3><a class="anchor" aria-hidden="true" id="routes-endpoints"></a><a href="#routes-endpoints" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Routes (Endpoints)</h3>
+<p>First, let's define our api endpoints. Open routes/api.php and put the following routes in:</p>
+<pre><code class="hljs"> Route::get(<span class="hljs-string">'projects'</span>, <span class="hljs-string">'ProjectController@index'</span>);
+    Route::post(<span class="hljs-string">'projects'</span>, <span class="hljs-string">'ProjectController@store'</span>);
+    Route::get(<span class="hljs-string">'projects/{id}'</span>, <span class="hljs-string">'ProjectController@show'</span>);
+    Route::put(<span class="hljs-string">'projects/{project}'</span>, <span class="hljs-string">'ProjectController@markAsCompleted'</span>);
+    Route::post(<span class="hljs-string">'tasks'</span>, <span class="hljs-string">'TaskController@store'</span>);
+    Route::put(<span class="hljs-string">'tasks/{task}'</span>, <span class="hljs-string">'TaskController@markAsCompleted'</span>);
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="controllers"></a><a href="#controllers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Controllers</h3>
+<p>First, scaffold your Controllers by using the following commands:</p>
+<pre><code class="hljs"><span class="hljs-variable">$ </span>php artisan <span class="hljs-symbol">make:</span>controller ProjectController
+<span class="hljs-variable">$ </span>php artisan <span class="hljs-symbol">make:</span>controller TaskController
+</code></pre>
+<p>Update the ProjectController (found at app/Http/Controllers/ProjectController.php):</p>
+<pre><code class="hljs"><span class="php"><span class="hljs-meta">&lt;?php</span>
+
+    <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+    <span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Project</span>;
+    <span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProjectController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+    </span>{
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+      </span>{
+        $projects = Project::where(<span class="hljs-string">'is_completed'</span>, <span class="hljs-keyword">false</span>)
+                            -&gt;orderBy(<span class="hljs-string">'created_at'</span>, <span class="hljs-string">'desc'</span>)
+                            -&gt;withCount([<span class="hljs-string">'tasks'</span> =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($query)</span> </span>{
+                              $query-&gt;where(<span class="hljs-string">'is_completed'</span>, <span class="hljs-keyword">false</span>);
+                            }])
+                            -&gt;get();
+
+        <span class="hljs-keyword">return</span> $projects-&gt;toJson();
+      }
+
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+      </span>{
+        $validatedData = $request-&gt;validate([
+          <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'required'</span>,
+          <span class="hljs-string">'description'</span> =&gt; <span class="hljs-string">'required'</span>,
+        ]);
+
+        $project = Project::create([
+          <span class="hljs-string">'name'</span> =&gt; $validatedData[<span class="hljs-string">'name'</span>],
+          <span class="hljs-string">'description'</span> =&gt; $validatedData[<span class="hljs-string">'description'</span>],
+        ]);
+
+        <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-string">'Project created!'</span>);
+      }
+
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+      </span>{
+        $project = Project::with([<span class="hljs-string">'tasks'</span> =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($query)</span> </span>{
+          $query-&gt;where(<span class="hljs-string">'is_completed'</span>, <span class="hljs-keyword">false</span>);
+        }])-&gt;find($id);
+
+        <span class="hljs-keyword">return</span> $project-&gt;toJson();
+      }
+
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">markAsCompleted</span><span class="hljs-params">(Project $project)</span>
+      </span>{
+        $project-&gt;is_completed = <span class="hljs-keyword">true</span>;
+        $project-&gt;update();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-string">'Project updated!'</span>);
+      }
+    }
+</span></code></pre>
+<p>Then Update the ProjectController (found at app/Http/Controllers/ProjectController.php):</p>
+<pre><code class="hljs"> <span class="php"><span class="hljs-meta">&lt;?php</span>
+
+    <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+    <span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Task</span>;
+    <span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TaskController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+    </span>{
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+      </span>{
+        $validatedData = $request-&gt;validate([<span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'required'</span>]);
+
+        $task = Task::create([
+          <span class="hljs-string">'title'</span> =&gt; $validatedData[<span class="hljs-string">'title'</span>],
+          <span class="hljs-string">'project_id'</span> =&gt; $request-&gt;project_id,
+        ]);
+
+        <span class="hljs-keyword">return</span> $task-&gt;toJson();
+      }
+
+      <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">markAsCompleted</span><span class="hljs-params">(Task $task)</span>
+      </span>{
+        $task-&gt;is_completed = <span class="hljs-keyword">true</span>;
+        $task-&gt;update();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-string">'Task updated!'</span>);
+      }
+    }
+</span></code></pre>
+<h1><a class="anchor" aria-hidden="true" id="the-view-react-part-of-our-the-tutorial"></a><a href="#the-view-react-part-of-our-the-tutorial" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The View (React part of our the tutorial)</h1>
+<p>We’ll be using React Router to handle routing in our application. For this, we need to render a single view file for all our application routes. Open routes/web.php and replace it content with the code below:
+<code>Route::view('/{path?}', 'app');</code></p>
+<p>We define a wildcard route. An app.blade.php view file will be rendered for all our app routes. This way, we can render our React components from within this view file, and we’ll be able use all the goodies that React has to offer.</p>
+<p>Next, let’s create the app.blade.php view file. We’ll create this file directly within the resources/views directory, then paste the following code in it:</p>
+<pre><code class="hljs"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ app()-&gt;getLocale() }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"IE=edge"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- CSRF Token --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"csrf-token"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ csrf_token() }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Tasksman<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Styles --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ asset('css/app.css') }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ asset('js/app.js') }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</span></code></pre>
+<p>We add references to both a CSS file and a JavaScript file (containing React and other dependencies bundled up). We have an empty div with an id of app. This is where our React components will be rendered. Also, you’ll notice we have a meta tag containing a CSRF token, which will be attached as a common header to all outgoing HTTP requests we make using Axios. This is defined in resources/assets/js/bootstrap.js.</p>
+<h3><a class="anchor" aria-hidden="true" id="creating-the-main-app-react-component"></a><a href="#creating-the-main-app-react-component" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating the main app react component</h3>
+<p>The App component will serve as the base for our React components. Let’s rename the default Example component to App and replace it content with the following code:</p>
+<pre><code class="hljs"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
+    <span class="hljs-keyword">import</span> { BrowserRouter, Route, Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>
+    <span class="hljs-keyword">import</span> Header <span class="hljs-keyword">from</span> <span class="hljs-string">'./Header'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      render () {
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+        )
+      }
+    }
+
+    ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>))
+</code></pre>
+<p>We render a Header component (which we’ll create shortly). The Header component will be rendered for all our app pages. As you can see, we are making use of React Router, so let’s install it:</p>
+<p><code>$ npm install react-router-dom</code></p>
+<p>Then open and update resources/assets/js/app.js as below:</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">'./bootstrap'</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">'./components/App'</span>)</span></span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="creating-the-header-component"></a><a href="#creating-the-header-component" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating the Header component</h3>
+<p>Let’s create the Header component referenced above. Create a new Header.js file within the resources/assets/js/components directory and paste the code below in it:</p>
+<pre><code class="hljs">```
+</code></pre>
+<p>import React from 'react'
+import { Link } from 'react-router-dom'</p>
+<pre><code class="hljs">const Header = () =&gt; (
+  &lt;nav className='navbar navbar-expand-md navbar-light navbar-laravel'&gt;
+    &lt;div className='container'&gt;
+      &lt;Link className='navbar-brand' to='/'&gt;Tasksman&lt;/Link&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+)
+
+export default Header
+```
+
+A basic Bootstrap navbar with a link to the homepage. As you can see, we are making use of the Link component from React Router. This will prevent our page from refreshing whenever we navigate around our app.
+
+### Displaying all projects yet to be completed
+</code></pre>
+<p>To display a list of projects that are yet to be completed, we’ll create a ProjectsList component. Within resources/assets/js/components, create a new ProjectsList.js file and paste the code below in it:</p>
+<pre><code class="hljs"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>
+    <span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> { Link } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProjectsList</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      <span class="hljs-keyword">constructor</span> () {
+        <span class="hljs-keyword">super</span>()
+        <span class="hljs-keyword">this</span>.state = {
+          <span class="hljs-attr">projects</span>: []
+        }
+      }
+
+      componentDidMount () {
+        axios.get(<span class="hljs-string">'/api/projects'</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+          <span class="hljs-keyword">this</span>.setState({
+            <span class="hljs-attr">projects</span>: response.data
+          })
+        })
+      }
+
+      render () {
+        <span class="hljs-keyword">const</span> { projects } = <span class="hljs-keyword">this</span>.state
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'container py-4'</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'row justify-content-center'</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'col-md-8'</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card'</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card-header'</span>&gt;</span>All projects<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card-body'</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'btn btn-primary btn-sm mb-3'</span> <span class="hljs-attr">to</span>=<span class="hljs-string">'/create'</span>&gt;</span>
+                      Create new project
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'list-group list-group-flush'</span>&gt;</span>
+                      {projects.map(project =&gt; (
+                        <span class="hljs-tag">&lt;<span class="hljs-name">Link</span>
+                          <span class="hljs-attr">className</span>=<span class="hljs-string">'list-group-item list-group-item-action d-flex justify-content-between align-items-center'</span>
+                          <span class="hljs-attr">to</span>=<span class="hljs-string">{</span>`/${<span class="hljs-attr">project.id</span>}`}
+                          <span class="hljs-attr">key</span>=<span class="hljs-string">{project.id}</span>
+                        &gt;</span>
+                          {project.name}
+                          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'badge badge-primary badge-pill'</span>&gt;</span>
+                            {project.tasks_count}
+                          <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
+                      ))}
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+        )
+      }
+    }
+
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ProjectsList
+</code></pre>
+<p>We define a projects state and initialize it to be an empty array. Using React’s componentDidMount lifecycle, we make an HTTP request using Axios to our app API endpoint to fetch all the projects that are yet to be marked as completed. Then we update the projects state with the response data gotten from our app API.</p>
+<p>Finally, we display a list of the projects by iterating over the projects state.</p>
+<p>Before we go on to test this out, let’s update the App component as below:</p>
+<pre><code class="hljs">  <span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
+    <span class="hljs-keyword">import</span> { BrowserRouter, Route, Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>
+    <span class="hljs-keyword">import</span> Header <span class="hljs-keyword">from</span> <span class="hljs-string">'./Header'</span>
+    <span class="hljs-keyword">import</span> ProjectsList <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProjectsList'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      render () {
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Switch</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProjectsList}</span> /&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Switch</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+        )
+      }
+    }
+
+    ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>))
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="newproject"></a><a href="#newproject" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NewProject</h3>
+<p>From the ProjectsList component, you’ll notice we have a link to create a new project. Let’s implement it. Create a new NewProject.js file within resources/assets/js/components, and paste the code below in it:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">import</span> axios from <span class="hljs-string">'axios'</span>
+    <span class="hljs-keyword">import</span> React, { Component } from <span class="hljs-string">'react'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewProject</span> <span class="hljs-title">extends</span> <span class="hljs-title">Component</span> </span>{
+      <span class="hljs-keyword">constructor</span> (props) {
+        <span class="hljs-keyword">super</span>(props)
+        <span class="hljs-keyword">this</span>.state = {
+          name: <span class="hljs-string">''</span>,
+          description: <span class="hljs-string">''</span>,
+          errors: []
+        }
+        <span class="hljs-keyword">this</span>.handleFieldChange = <span class="hljs-keyword">this</span>.handleFieldChange.bind(<span class="hljs-keyword">this</span>)
+        <span class="hljs-keyword">this</span>.handleCreateNewProject = <span class="hljs-keyword">this</span>.handleCreateNewProject.bind(<span class="hljs-keyword">this</span>)
+        <span class="hljs-keyword">this</span>.hasErrorFor = <span class="hljs-keyword">this</span>.hasErrorFor.bind(<span class="hljs-keyword">this</span>)
+        <span class="hljs-keyword">this</span>.renderErrorFor = <span class="hljs-keyword">this</span>.renderErrorFor.bind(<span class="hljs-keyword">this</span>)
+      }
+
+      handleFieldChange (event) {
+        <span class="hljs-keyword">this</span>.setState({
+          [event.target.name]: event.target.value
+        })
+      }
+
+      handleCreateNewProject (event) {
+        event.preventDefault()
+
+        <span class="hljs-keyword">const</span> { history } = <span class="hljs-keyword">this</span>.props
+
+        <span class="hljs-keyword">const</span> project = {
+          name: <span class="hljs-keyword">this</span>.state.name,
+          description: <span class="hljs-keyword">this</span>.state.description
+        }
+
+        axios.post(<span class="hljs-string">'/api/projects'</span>, project)
+          .then(response =&gt; {
+            <span class="hljs-comment">// redirect to the homepage</span>
+            history.push(<span class="hljs-string">'/'</span>)
+          })
+          .<span class="hljs-keyword">catch</span>(error =&gt; {
+            <span class="hljs-keyword">this</span>.setState({
+              errors: error.response.<span class="hljs-keyword">data</span>.errors
+            })
+          })
+      }
+
+      hasErrorFor (field) {
+        <span class="hljs-keyword">return</span> !!<span class="hljs-keyword">this</span>.state.errors[field]
+      }
+
+      renderErrorFor (field) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hasErrorFor(field)) {
+          <span class="hljs-keyword">return</span> (
+            &lt;span className=<span class="hljs-string">'invalid-feedback'</span>&gt;
+              &lt;strong&gt;{<span class="hljs-keyword">this</span>.state.errors[field][<span class="hljs-number">0</span>]}&lt;/strong&gt;
+            &lt;/span&gt;
+          )
+        }
+      }
+
+      render () {
+        <span class="hljs-keyword">return</span> (
+          &lt;div className=<span class="hljs-string">'container py-4'</span>&gt;
+            &lt;div className=<span class="hljs-string">'row justify-content-center'</span>&gt;
+              &lt;div className=<span class="hljs-string">'col-md-6'</span>&gt;
+                &lt;div className=<span class="hljs-string">'card'</span>&gt;
+                  &lt;div className=<span class="hljs-string">'card-header'</span>&gt;Create new project&lt;/div&gt;
+                  &lt;div className=<span class="hljs-string">'card-body'</span>&gt;
+                    &lt;form onSubmit={<span class="hljs-keyword">this</span>.handleCreateNewProject}&gt;
+                      &lt;div className=<span class="hljs-string">'form-group'</span>&gt;
+                        &lt;label htmlFor=<span class="hljs-string">'name'</span>&gt;Project name&lt;/label&gt;
+                        &lt;input
+                          id=<span class="hljs-string">'name'</span>
+                          type=<span class="hljs-string">'text'</span>
+                          className={`form-control ${<span class="hljs-keyword">this</span>.hasErrorFor(<span class="hljs-string">'name'</span>) ? <span class="hljs-string">'is-invalid'</span> : <span class="hljs-string">''</span>}`}
+                          name=<span class="hljs-string">'name'</span>
+                          value={<span class="hljs-keyword">this</span>.state.name}
+                          onChange={<span class="hljs-keyword">this</span>.handleFieldChange}
+                        /&gt;
+                        {<span class="hljs-keyword">this</span>.renderErrorFor(<span class="hljs-string">'name'</span>)}
+                      &lt;/div&gt;
+                      &lt;div className=<span class="hljs-string">'form-group'</span>&gt;
+                        &lt;label htmlFor=<span class="hljs-string">'description'</span>&gt;Project description&lt;/label&gt;
+                        &lt;textarea
+                          id=<span class="hljs-string">'description'</span>
+                          className={`form-control ${<span class="hljs-keyword">this</span>.hasErrorFor(<span class="hljs-string">'description'</span>) ? <span class="hljs-string">'is-invalid'</span> : <span class="hljs-string">''</span>}`}
+                          name=<span class="hljs-string">'description'</span>
+                          rows=<span class="hljs-string">'10'</span>
+                          value={<span class="hljs-keyword">this</span>.state.description}
+                          onChange={<span class="hljs-keyword">this</span>.handleFieldChange}
+                        /&gt;
+                        {<span class="hljs-keyword">this</span>.renderErrorFor(<span class="hljs-string">'description'</span>)}
+                      &lt;/div&gt;
+                      &lt;button className=<span class="hljs-string">'btn btn-primary'</span>&gt;Create&lt;/button&gt;
+                    &lt;/form&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )
+      }
+    }
+
+    export <span class="hljs-keyword">default</span> NewProject
+</code></pre>
+<p>This component renders a form for creating a new project. We define some states: name, description and errors. Then we define a handleFieldChange method that gets called whenever the create a new project form input fields changes. Base on these changes, we update the states (name and description) accordingly. For this to work, we add an onChange event to each of the field.</p>
+<p>Once the form is submitted, a handleCreateNewProject method is called, which first prevents the default behavior of form submission. Then it makes an HTTP request to our app API endpoint passing along the form data. If everything went well, we simply redirect the user to the homepage. otherwise, we update the errors state with the response error gotten from our app API.</p>
+<p>The hasErrorFor method checks if the specified field has an error or not, and will either return true or false. The renderErrorFor method renders the error message for the specified field, if the field has error.</p>
+<p>Just as we did with the ProjectsList component, let’s add the NewProject component to the App component. Update the App component as below:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
+    <span class="hljs-keyword">import</span> { BrowserRouter, Route, Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>
+    <span class="hljs-keyword">import</span> Header <span class="hljs-keyword">from</span> <span class="hljs-string">'./Header'</span>
+    <span class="hljs-keyword">import</span> NewProject <span class="hljs-keyword">from</span> <span class="hljs-string">'./NewProject'</span>
+    <span class="hljs-keyword">import</span> ProjectsList <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProjectsList'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      render () {
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Switch</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProjectsList}</span> /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/create'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{NewProject}</span> /&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Switch</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+        )
+      }
+    }
+
+    ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>))
+</code></pre>
+<p>We define the route /create for creating a new project, and the NewProject component will be rendered whenever the route is visited.</p>
+<h3><a class="anchor" aria-hidden="true" id="display-a-single-project"></a><a href="#display-a-single-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Display a single project</h3>
+<p>Now let’s display a single project. You’ll notice from the ProjectsList component that each project is listed with an anchor (to the project ID) to view the project. Create a new SingleProject component within resources/assets/js/components and paste the code below in it:</p>
+<pre><code class="hljs">  <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>
+    <span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleProject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      <span class="hljs-keyword">constructor</span> (props) {
+        <span class="hljs-keyword">super</span>(props)
+        <span class="hljs-keyword">this</span>.state = {
+          <span class="hljs-attr">project</span>: {},
+          <span class="hljs-attr">tasks</span>: []
+        }
+      }
+
+      componentDidMount () {
+        <span class="hljs-keyword">const</span> projectId = <span class="hljs-keyword">this</span>.props.match.params.id
+
+        axios.get(<span class="hljs-string">`/api/projects/<span class="hljs-subst">${projectId}</span>`</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+          <span class="hljs-keyword">this</span>.setState({
+            <span class="hljs-attr">project</span>: response.data,
+            <span class="hljs-attr">tasks</span>: response.data.tasks
+          })
+        })
+      }
+
+      render () {
+        <span class="hljs-keyword">const</span> { project, tasks } = <span class="hljs-keyword">this</span>.state
+
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'container py-4'</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'row justify-content-center'</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'col-md-8'</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card'</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card-header'</span>&gt;</span>{project.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'card-body'</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{project.description}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'btn btn-primary btn-sm'</span>&gt;</span>
+                      Mark as completed
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'list-group mt-3'</span>&gt;</span>
+                      {tasks.map(task =&gt; (
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+                          <span class="hljs-attr">className</span>=<span class="hljs-string">'list-group-item d-flex justify-content-between align-items-center'</span>
+                          <span class="hljs-attr">key</span>=<span class="hljs-string">{task.id}</span>
+                        &gt;</span>
+                          {task.title}
+
+                          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'btn btn-primary btn-sm'</span>&gt;</span>
+                            Mark as completed
+                          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                      ))}
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+                  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+        )
+      }
+    }
+
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SingleProject
+</code></pre>
+<p>We define two state properties: project and tasks. The project state will hold the details of the specified project, while the tasks state will hold the tasks for the project. Inside the componentDidMount lifecycle method, we make an HTTP request to our app API to fetch the project with the specified project ID. The project ID is passed to the URL, so we can get it using this.props.match.params.id. Then we update the state (project and tasks) with the response data gotten from our app API.</p>
+<p>Finally, we display the details about the project as well as the project’s tasks. Also, we display buttons to mark the project and its tasks as completed.</p>
+<p>Next, let’s add the SingleProject component to the App component. Update the App component as below:</p>
+<pre><code class="hljs">  <span class="hljs-comment">// resources/assets/js/components/App.js</span>
+
+    <span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
+    <span class="hljs-keyword">import</span> { BrowserRouter, Route, Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>
+    <span class="hljs-keyword">import</span> Header <span class="hljs-keyword">from</span> <span class="hljs-string">'./Header'</span>
+    <span class="hljs-keyword">import</span> NewProject <span class="hljs-keyword">from</span> <span class="hljs-string">'./NewProject'</span>
+    <span class="hljs-keyword">import</span> ProjectsList <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProjectsList'</span>
+    <span class="hljs-keyword">import</span> SingleProject <span class="hljs-keyword">from</span> <span class="hljs-string">'./SingleProject'</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+      render () {
+        <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Switch</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProjectsList}</span> /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/create'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{NewProject}</span> /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/:id'</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{SingleProject}</span> /&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Switch</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+        )
+      }
+    }
+
+    ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>))
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="marking-a-project-as-completed"></a><a href="#marking-a-project-as-completed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Marking a project as completed</h3>
+<p>Now, let’s add the ability to mark a project as completed. Add the following code to the SingleProject component:</p>
+<pre><code class="hljs">
+    <span class="hljs-comment">// add this inside the `constructor`</span>
+    <span class="hljs-keyword">this</span>.handleMarkProjectAsCompleted = <span class="hljs-keyword">this</span>.handleMarkProjectAsCompleted.bind(<span class="hljs-keyword">this</span>)
+
+    <span class="hljs-comment">// add these outside the `constructor`, as a standalone method</span>
+    handleMarkProjectAsCompleted () {
+      <span class="hljs-keyword">const</span> { history } = <span class="hljs-keyword">this</span>.props
+
+      axios.put(`/api/projects/${<span class="hljs-keyword">this</span>.state.project.id}`)
+        .then(response =&gt; history.push(<span class="hljs-string">'/'</span>))
+    }
+</code></pre>
+<p>Once the mark as completed button is clicked, the handleMarkProjectAsCompleted method will be called. This method makes an HTTP request to our app API passing along the ID of the project we want to mark as completed. Once the request is successful, we simply redirect the user to the homepage.</p>
+<p>Next, update the first Mark as completed ****button, which is below the project’s description as below:</p>
+<pre><code class="hljs"> <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+      <span class="hljs-attr">className</span>=<span class="hljs-string">'btn btn-primary btn-sm'</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.handleMarkProjectAsCompleted}</span>
+    &gt;</span>
+      Mark as completed
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="adding-a-task-to-project"></a><a href="#adding-a-task-to-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a task to project</h3>
+<p>Let’s the ability to add new tasks to a project. Add the following code to the SingleProject component:</p>
+<pre><code class="hljs"><span class="hljs-keyword">this</span>.state = {
+      ...,
+      title: <span class="hljs-string">''</span>,
+      errors: []
+    }
+
+    <span class="hljs-comment">// add these inside the `constructor`</span>
+    <span class="hljs-keyword">this</span>.handleFieldChange = <span class="hljs-keyword">this</span>.handleFieldChange.bind(<span class="hljs-keyword">this</span>)
+    <span class="hljs-keyword">this</span>.handleAddNewTask = <span class="hljs-keyword">this</span>.handleAddNewTask.bind(<span class="hljs-keyword">this</span>)
+    <span class="hljs-keyword">this</span>.hasErrorFor = <span class="hljs-keyword">this</span>.hasErrorFor.bind(<span class="hljs-keyword">this</span>)
+    <span class="hljs-keyword">this</span>.renderErrorFor = <span class="hljs-keyword">this</span>.renderErrorFor.bind(<span class="hljs-keyword">this</span>)
+
+    <span class="hljs-comment">// add these outside the `constructor`, as a standalone methods</span>
+    handleFieldChange (event) {
+      <span class="hljs-keyword">this</span>.setState({
+        title: event.target.value
+      })
+    }
+
+    handleAddNewTask (event) {
+      event.preventDefault()
+
+      <span class="hljs-keyword">const</span> task = {
+        title: <span class="hljs-keyword">this</span>.state.title,
+        project_id: <span class="hljs-keyword">this</span>.state.project.id
+      }
+
+      axios.post(<span class="hljs-string">'/api/tasks'</span>, task)
+        .then(response =&gt; {
+          <span class="hljs-comment">// clear form input</span>
+          <span class="hljs-keyword">this</span>.setState({
+            title: <span class="hljs-string">''</span>
+          })
+          <span class="hljs-comment">// add new task to list of tasks</span>
+          <span class="hljs-keyword">this</span>.setState(prevState =&gt; ({
+            tasks: prevState.tasks.concat(response.<span class="hljs-keyword">data</span>)
+          }))
+        })
+        .<span class="hljs-keyword">catch</span>(error =&gt; {
+          <span class="hljs-keyword">this</span>.setState({
+            errors: error.response.<span class="hljs-keyword">data</span>.errors
+          })
+        })
+    }
+
+    hasErrorFor (field) {
+      <span class="hljs-keyword">return</span> !!<span class="hljs-keyword">this</span>.state.errors[field]
+    }
+
+    renderErrorFor (field) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hasErrorFor(field)) {
+        <span class="hljs-keyword">return</span> (
+          &lt;span className=<span class="hljs-string">'invalid-feedback'</span>&gt;
+            &lt;strong&gt;{<span class="hljs-keyword">this</span>.state.errors[field][<span class="hljs-number">0</span>]}&lt;/strong&gt;
+          &lt;/span&gt;
+        )
+      }
+    }
+</code></pre>
+<p>handleFieldChange, hasErrorFor and renderErrorFor are the same from the NewProject component, so we won’t be going over them again. The handleAddNewTask method is also similar to the handleCreateNewProject method from the NewProject component, so we’ll go over only the new part. If the HTTP request is successful, we first clear out the form input, then we update the tasks state by adding the new task to list of tasks.</p>
+<p>Next, add the code below inside the render method just below <hr />:</p>
+<pre><code class="hljs"><span class="xml"> <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=</span></span><span class="hljs-template-variable">{this.handleAddNewTask}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'input-group'</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+          <span class="hljs-attr">type</span>=<span class="hljs-string">'text'</span>
+          <span class="hljs-attr">name</span>=<span class="hljs-string">'title'</span>
+          <span class="hljs-attr">className</span>=</span></span><span class="hljs-template-variable">{`form-control ${this.hasErrorFor('title') ? 'is-invalid' : ''}</span><span class="xml"><span class="hljs-tag">`}
+          <span class="hljs-attr">placeholder</span>=<span class="hljs-string">'Task title'</span>
+          <span class="hljs-attr">value</span>=</span></span><span class="hljs-template-variable">{this.state.title}</span><span class="xml"><span class="hljs-tag">
+          <span class="hljs-attr">onChange</span>=</span></span><span class="hljs-template-variable">{this.handleFieldChange}</span><span class="xml"><span class="hljs-tag">
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'input-group-append'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">'btn btn-primary'</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        </span><span class="hljs-template-variable">{this.renderErrorFor('title')}</span><span class="xml">
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="marking-a-task-as-completed"></a><a href="#marking-a-task-as-completed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Marking a task as completed</h3>
+<p>For the last feature of our task management app, we’ll add the ability to mark a task as completed. This will be very much similar to what we did with marking a project as completed. Add the following code to the SingleProject component:</p>
+<pre><code class="hljs"> handleMarkTaskAsCompleted (taskId) {
+      axios.put(<span class="hljs-string">`/api/tasks/<span class="hljs-subst">${taskId}</span>`</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+        <span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">prevState</span> =&gt;</span> ({
+          <span class="hljs-attr">tasks</span>: prevState.tasks.filter(<span class="hljs-function"><span class="hljs-params">task</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> task.id !== taskId
+          })
+        }))
+      })
+    }
+</code></pre>
+<p>Unlike the handleMarkProjectAsCompleted method, the handleMarkTaskAsCompleted accepts the ID of the task to be marked as completed as an argument. Then with the task ID, it makes an HTTP request to our app API. Once the request is successful, we update the tasks state by filtering out the task with the ID passed to the method.</p>
+<p>Lastly, update the Mark as completed button next to each task as below:</p>
+<pre><code class="hljs"> &lt;button
+      className=<span class="hljs-string">'btn btn-primary btn-sm'</span>
+      onClick={<span class="hljs-keyword">this</span>.handleMarkTaskAsCompleted.bind(<span class="hljs-keyword">this</span>,task.id)}
+    &gt;
+      Mark <span class="hljs-keyword">as</span> completed
+    &lt;/button&gt;
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="testing-out-the-app"></a><a href="#testing-out-the-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing out the app</h3>
+<p>Before testing out our app, we need to compile the JavaScript files using Laravel Mix using:</p>
+<p><code>$ npm run dev &amp;&amp; php artisan serve</code></p>
+<p>This tutorial has been modified but has mostly been contributed to (indirectly) by Chimezie Enyinnaya</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs-laravel/docs/doc2"><span>restful API tutorial (Laravel Backend Only)</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#goal">Goal</a></li><li><a href="#scaffolding">Scaffolding</a></li><li><a href="#models--migrations-scaffolding">Models &amp; Migrations Scaffolding</a><ul class="toc-headings"><li><a href="#routes-endpoints">Routes (Endpoints)</a></li><li><a href="#controllers">Controllers</a></li><li><a href="#creating-the-main-app-react-component">Creating the main app react component</a></li><li><a href="#creating-the-header-component">Creating the Header component</a></li><li><a href="#newproject">NewProject</a></li><li><a href="#display-a-single-project">Display a single project</a></li><li><a href="#marking-a-project-as-completed">Marking a project as completed</a></li><li><a href="#adding-a-task-to-project">Adding a task to project</a></li><li><a href="#marking-a-task-as-completed">Marking a task as completed</a></li><li><a href="#testing-out-the-app">Testing out the app</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs-laravel/" class="nav-home"><img src="/docs-laravel/img/favicon.ico" alt="Personal Laravel Docs and Recipes" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs-laravel/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs-laravel/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs-laravel/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/docs-laravel/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/docs-laravel/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/docs-laravel/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2020 Zenahr Barzani. All Rights Reserved.</section></footer></div></body></html>
